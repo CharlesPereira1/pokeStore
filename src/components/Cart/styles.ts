@@ -1,13 +1,63 @@
 import styled from 'styled-components';
 import { shade } from 'polished';
+import { Layout } from 'antd';
+
 import { colors } from '~/styles/theme';
+
+const { Sider } = Layout;
+
+const { Content } = Layout;
+
+interface CardtProps {
+  bgColor: string;
+}
+
+export const SiderStyle = styled.div<CardtProps>`
+  display: flex;
+
+  max-width: 400px;
+  height: 90vh;
+
+  background: ${({ bgColor }) => bgColor};
+  padding: 10px;
+  margin: 10px;
+  position: relative;
+
+  justify-content: center;
+
+  border-radius: 4px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 5px 0 rgba(0, 0, 0, 0.19);
+
+  h3 {
+    display: block;
+    text-align: center;
+    font-weight: bold;
+    padding: 5px 0;
+    border-bottom: 1px solid ${colors.border};
+  }
+
+  @media (max-width: 600px) {
+    order: -1;
+    max-width: 590px;
+    height: 50vh;
+  }
+  @media (max-width: 412px) {
+    width: 100%;
+    max-width: 380px;
+    height: 50vh;
+  }
+`;
 
 export const ProductTable = styled.div`
   height: 75vh;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 
   overflow-y: auto;
   overflow-x: hidden;
   scrollbar-width: none;
+  padding-right: 10px;
 
   ::-webkit-scrollbar {
     width: 2px;
@@ -24,82 +74,87 @@ export const ProductTable = styled.div`
     border-radius: 3px;
   }
 
-  thead th {
-    color: #999;
-    text-align: left;
+  li {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 10px;
 
-    text-align: center;
-    font-size: 12px;
-  }
-
-  tbody td {
-    padding: 4px 2px;
-    border-bottom: 1px solid #eee;
-
-    > img {
-      height: 75px;
+    & + li {
+      margin-top: 10px;
+      border-top: 1px solid ${colors.border};
     }
-
-    > strong {
-      color: #333;
-      display: block;
-    }
-
-    > span {
-      display: flex;
-      align-items: center;
-      max-height: 35px;
-
-      margin: 5px 0 10px;
-
-      > img {
-        width: 20px;
-        height: 20px;
-        margin-right: 5px;
-      }
-      > p {
-        font-size: 14px;
-        font-weight: 700;
-        margin-top: 23px;
-      }
-    }
-
     div {
       display: flex;
-      align-items: center;
+      /* justify-content: space-between; */
+    }
 
-      input {
-        border: 1px solid #eee;
-        border-radius: 4px;
-        color: #666;
-        width: 45px;
-        padding: 0;
-        text-align: center;
-        padding-left: 10px;
-        padding-right: 0;
-        font-size: 10px;
-      }
-      > button {
-        :disabled {
-          svg {
-            fill: red;
-          }
-        }
-        padding: 3px;
-        margin-top: 3px;
-        flex-direction: column;
+    div:nth-child(1) {
+      img {
+        height: 75px;
       }
     }
-  }
-
-  button {
-    display: flex;
-
-    small {
+    div:nth-child(2) {
+      align-items: center;
       display: flex;
-      margin-left: 26px;
-      justify-content: center;
-      text-decoration: underline;
+      flex-direction: column;
+      > span {
+        display: flex;
+        align-items: center;
+        max-height: 35px;
+
+        margin: 5px 0 10px;
+
+        > img {
+          width: 20px;
+          height: 20px;
+          margin-right: 5px;
+        }
+        > p {
+          font-size: 14px;
+          font-weight: 700;
+          margin-top: 23px;
+        }
+      }
+    }
+
+    div:nth-child(3) {
+      display: flex;
+      flex-direction: column;
+      margin-left: 15px;
+      span {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        input {
+          border: 1px solid ${colors.border};
+          border-radius: 4px;
+          color: ${colors.text};
+          width: 45px;
+          text-align: center;
+          font-size: 12px;
+          margin: 0 5px;
+        }
+        > button {
+          svg {
+            margin-top: 8px;
+          }
+          :disabled {
+            svg {
+              fill: ${colors.danger};
+            }
+          }
+        }
+      }
+
+      > button {
+        text-align: center;
+        text-decoration: underline;
+        font-size: 16px;
+        margin-top: -5px;
+      }
+    }
+
+    div:nth-child(4) {
     }
   }
 
@@ -121,6 +176,10 @@ export const ProductTable = styled.div`
       margin-top: 22px;
     }
   }
+
+  @media (max-width: 600px) {
+    height: 30vh;
+  }
 `;
 
 export const Total = styled.div`
@@ -129,7 +188,7 @@ export const Total = styled.div`
   align-items: center;
   bottom: 0;
   margin-bottom: 20px;
-  border-top: 1px solid #eee;
+  border-top: 1px solid ${colors.border};
 
   footer {
     display: flex;
@@ -139,15 +198,15 @@ export const Total = styled.div`
 
     button {
       width: 100%;
-      background: green;
-      color: #fff;
+      background: ${colors.btSuccess};
+      color: ${colors.white};
       border-radius: 4px;
       padding: 12px 20px;
       font-weight: bold;
       text-transform: uppercase;
 
       &:hover {
-        background: ${shade(0.2, 'green')};
+        background: ${shade(0.2, colors.barBkColor)};
       }
     }
   }

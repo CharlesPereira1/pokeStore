@@ -1,17 +1,62 @@
-import React, { ReactNode } from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
+import { AiOutlineSearch } from 'react-icons/ai';
+import { FaShoppingCart } from 'react-icons/fa';
+import { IoMdArrowBack } from 'react-icons/io';
+import { useGetToTypePokemon } from '~/hooks/useGetToTypePokemon';
 
-import { Container } from './styles';
+import Input from '../Input';
+
+import { HeaderStyle, BadgeStyle } from './styles';
 
 interface HeaderProps {
-  children: ReactNode;
+  qtdCartList: number;
+  handleGoBack: () => void;
+  setOpenCart: Dispatch<SetStateAction<boolean>>;
 }
 
-function Header({ children }: HeaderProps) {
+const Header: React.FC<HeaderProps> = ({
+  qtdCartList,
+  handleGoBack,
+  setOpenCart,
+}) => {
+  const { handleSearch } = useGetToTypePokemon();
+
+  const typeList = JSON.parse(localStorage.getItem('listTypes') || '[]');
+
   return (
-    <Container>
-      <h1>Header</h1>
-      {children}
-    </Container>
+    <HeaderStyle
+      style={{ background: typeList?.bgColor, padding: '0px' }}
+      btnColor={typeList.btnColor && typeList?.btnColor}
+    >
+      <div>
+        <span className="headerBack">
+          <button onClick={handleGoBack}>
+            <span>
+              <IoMdArrowBack size={30} />
+              {typeList?.name}
+            </span>
+          </button>
+        </span>
+
+        <div>
+          <Input
+            placeholder="Digite o nome do Pokemon"
+            onChange={e => handleSearch(e.target.value)}
+          />
+          <AiOutlineSearch size={20} color="#000" />
+        </div>
+
+        <BadgeStyle
+          size="small"
+          count={qtdCartList}
+          btnColor={typeList.btnColor && typeList?.btnColor}
+        >
+          <button onClick={() => setOpenCart(prev => !prev)}>
+            <FaShoppingCart size={28} />
+          </button>
+        </BadgeStyle>
+      </div>
+    </HeaderStyle>
   );
 };
 

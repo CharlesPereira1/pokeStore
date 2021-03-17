@@ -1,17 +1,18 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
-import React, { ReactNode, useEffect, useMemo } from 'react';
+import React from 'react';
 import { MdAddCircleOutline, MdRemoveCircleOutline } from 'react-icons/md';
 import { AiOutlineStop } from 'react-icons/ai';
 import swal from 'sweetalert';
 import { Modal } from 'antd';
 import { useHistory } from 'react-router-dom';
 
+import Item from 'antd/lib/list/Item';
 import { PokemonProps, useGetToTypePokemon } from '~/hooks/useGetToTypePokemon';
 
 import dolarSvg from '~/assets/svg/dollarSign.svg';
 import pokebola from '~/assets/pokebola.png';
 
-import { ProductTable, Total } from './styles';
+import { SiderStyle, ProductTable, Total } from './styles';
 
 interface CartProps extends PokemonProps {
   themeStyle?: {
@@ -71,39 +72,30 @@ const Cart: React.FC<CartProps> = () => {
   };
 
   return (
-    <>
+    <SiderStyle bgColor={typeList.bgColor}>
       {!listAddToCart.some((fList: any) => fList.idLoja === typeList.id) ? (
         'Nenhum pokemon no carrinho.'
       ) : (
         <>
           <ProductTable>
-            <thead>
-              <tr>
-                <th />
-                <th>POKEMON</th>
-                <th>QTD</th>
-                <th>SUBTOTAL</th>
-                <th />
-              </tr>
-            </thead>
-            <tbody>
-              {listAddToCart
-                .filter((fList: any) => fList.idLoja === typeList.id)
-                .map((listCard: CartProps) => (
-                  <tr key={listCard.id}>
-                    <td>
+            <h3>CARRINHO</h3>
+            {listAddToCart
+              .filter((fList: any) => fList.idLoja === typeList.id)
+              .map((listCard: CartProps) => (
+                <div key={listCard.id}>
+                  <li>
+                    <div>
                       <img src={listCard.img} alt={listCard.name} />
-                    </td>
-                    <td>
+                    </div>
+                    <div>
                       <strong>{listCard.name || pokebola}</strong>
                       <span>
                         <img src={dolarSvg} alt="" />
                         <p>{listCard.price}</p>
                       </span>
-                    </td>
-
-                    <td>
-                      <div>
+                    </div>
+                    <div>
+                      <span>
                         <button
                           onClick={() => handleSubQtdToCart(listCard)}
                           disabled={listCard.qtd === 0}
@@ -123,21 +115,20 @@ const Cart: React.FC<CartProps> = () => {
                         <button onClick={() => handleAddToCart(listCard)}>
                           <MdAddCircleOutline size={16} />
                         </button>
-                      </div>
+                      </span>
                       <button onClick={() => handleConfirmRemove(listCard)}>
                         <small>excluir</small>
                       </button>
-                    </td>
-                    <td>
+                    </div>
+                    <div>
                       <strong className="subTotal">
                         <img src={dolarSvg} alt="" />
                         <p>{listCard.subTotal}</p>
                       </strong>
-                    </td>
-                    <td />
-                  </tr>
-                ))}
-            </tbody>
+                    </div>
+                  </li>
+                </div>
+              ))}
           </ProductTable>
 
           <Total>
@@ -154,7 +145,7 @@ const Cart: React.FC<CartProps> = () => {
           </Total>
         </>
       )}
-    </>
+    </SiderStyle>
   );
 };
 

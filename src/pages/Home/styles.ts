@@ -1,6 +1,8 @@
 import styled, { css } from 'styled-components';
 import { shade } from 'polished';
-import { Layout, Card, CardProps } from 'antd';
+import { Layout, Card } from 'antd';
+
+import { colors } from '~/styles/theme';
 
 const { Content } = Layout;
 
@@ -10,7 +12,7 @@ interface HomePropsStyle {
 }
 
 export const LayoutStyle = styled(Layout)`
-  background: #fff;
+  background: ${colors.white};
 `;
 
 export const ContentStyle = styled(Content)`
@@ -37,7 +39,7 @@ export const ProductList = styled.ul<HomePropsStyle>`
 
   span {
     display: flex;
-    color: #333;
+    color: ${colors.text};
     font-size: 30px;
     margin: 20px 0 30px;
     justify-content: center;
@@ -50,7 +52,7 @@ export const ProductList = styled.ul<HomePropsStyle>`
     display: block;
     background: ${({ btnColor }) => btnColor};
     border: none;
-    color: #fff;
+    color: ${colors.white};
     border-radius: 4px;
     margin-top: auto;
     font-weight: 600;
