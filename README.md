@@ -50,9 +50,9 @@ Para a construção deste projeto foi usado ReactJS com TypeScript. Todos os dad
 
 ### Conceitos abordados
 
-- Uso de flexbox para alinhar e ajustar elementos na página.
+- Trabalho com useContext e aplicação em estado global.
 
-- Consumo de api com o uso da lib [axios](https://github.com/axios/axios).
+- Uso de flexbox para alinhar e ajustar elementos na página.
 
 - Conceitos de tipagem no typescript.
 
