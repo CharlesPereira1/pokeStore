@@ -12,7 +12,7 @@ const Home: React.FC = () => {
 
   const handleAcessStore = useCallback(listType => {
     localStorage.setItem('listTypes', JSON.stringify(listType));
-    history.push(`/repository/${listType.id}/${listType.type}`);
+    history.push(`/store/${listType.id}/${listType.type}`);
   }, []);
 
   return (

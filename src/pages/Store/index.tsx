@@ -9,7 +9,7 @@ import { useGetToTypePokemon } from '~/hooks/useGetToTypePokemon';
 
 import { LayoutStyle, Container } from './styles';
 
-const Repository: React.FC = () => {
+const Story: React.FC = () => {
   const { openCart, handleTypeOfPokemonClass } = useGetToTypePokemon();
   const history = useHistory();
 
@@ -42,4 +42,4 @@ const Repository: React.FC = () => {
   );
 };
 
-export default Repository;
+export default Story;

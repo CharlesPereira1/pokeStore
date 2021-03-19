@@ -48,7 +48,7 @@ const Details: React.FC<AboutProps> = () => {
   const { colors } = useTheme();
 
   const handleGoBack = useCallback(() => {
-    history.push(`/repository/${types.id}/${types.type}`);
+    history.push(`/store/${types.id}/${types.type}`);
     setOpenCart(true);
   }, []);
 
