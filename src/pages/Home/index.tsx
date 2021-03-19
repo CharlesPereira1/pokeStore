@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
-import React, { ReactNode, useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import { List } from 'antd';
 
@@ -7,17 +7,13 @@ import { LayoutStyle, ContentStyle, ProductList, CardList } from './styles';
 
 import { storyList } from '~/styles/storeTheme';
 
-interface RepositoryProps {
-  children: ReactNode;
-}
-
-const Home: React.FC<RepositoryProps> = ({ children }) => {
+const Home: React.FC = () => {
   const history = useHistory();
 
-  const handleAcessStore = useCallback(list => {
-    localStorage.setItem('listTypes', JSON.stringify(list));
-    history.push(`/repository/${list.id}/${list.type}`);
-  }, []); // eslint-disable-line
+  const handleAcessStore = useCallback(listType => {
+    localStorage.setItem('listTypes', JSON.stringify(listType));
+    history.push(`/repository/${listType.id}/${listType.type}`);
+  }, []);
 
   return (
     <LayoutStyle>

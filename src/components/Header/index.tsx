@@ -1,39 +1,44 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { FaShoppingCart } from 'react-icons/fa';
 import { IoMdArrowBack } from 'react-icons/io';
+
 import { useGetToTypePokemon } from '~/hooks/useGetToTypePokemon';
 
 import Input from '../Input';
 
-import { HeaderStyle, BadgeStyle } from './styles';
+import { HeaderStyle, HeaderContent, Badgebutton } from './styles';
 
 interface HeaderProps {
-  qtdCartList: number;
-  handleGoBack: () => void;
-  setOpenCart: Dispatch<SetStateAction<boolean>>;
+  handleGoBack?: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({
-  qtdCartList,
-  handleGoBack,
-  setOpenCart,
-}) => {
-  const { handleSearch } = useGetToTypePokemon();
+const Header: React.FC<HeaderProps> = ({ handleGoBack }) => {
+  const [itemBadge, setItemBadge] = useState<number>(0 as number);
 
-  const typeList = JSON.parse(localStorage.getItem('listTypes') || '[]');
+  const { setOpenCart, handleSearch } = useGetToTypePokemon();
+
+  const types = JSON.parse(localStorage.getItem('listTypes') || '[]');
+  const itemsToCart = JSON.parse(localStorage.getItem('addToCart') || '[]');
+
+  useEffect(() => {
+    if (itemsToCart) {
+      const qtdCartList = itemsToCart.filter(
+        (fList: any) => fList.idLoja === types.id,
+      ).length;
+
+      setItemBadge(qtdCartList);
+    }
+  }, [itemsToCart]);
 
   return (
-    <HeaderStyle
-      style={{ background: typeList?.bgColor, padding: '0px' }}
-      btnColor={typeList.btnColor && typeList?.btnColor}
-    >
-      <div>
+    <HeaderStyle style={{ background: types?.bgColor, padding: '0px' }}>
+      <HeaderContent btnColor={types?.btnColor}>
         <span className="headerBack">
           <button onClick={handleGoBack}>
             <span>
               <IoMdArrowBack size={30} />
-              {typeList?.name}
+              {types?.name}
             </span>
           </button>
         </span>
@@ -46,16 +51,18 @@ const Header: React.FC<HeaderProps> = ({
           <AiOutlineSearch size={20} color="#000" />
         </div>
 
-        <BadgeStyle
-          size="small"
-          count={qtdCartList}
-          btnColor={typeList.btnColor && typeList?.btnColor}
-        >
-          <button onClick={() => setOpenCart(prev => !prev)}>
-            <FaShoppingCart size={28} />
-          </button>
-        </BadgeStyle>
-      </div>
+        <div>
+          <Badgebutton btnColor={types?.btnColor}>
+            <button type="button" onClick={() => setOpenCart(prev => !prev)}>
+              <div>
+                <FaShoppingCart size={28} />
+                <small />
+                <p>{itemBadge}</p>
+              </div>
+            </button>
+          </Badgebutton>
+        </div>
+      </HeaderContent>
     </HeaderStyle>
   );
 };
