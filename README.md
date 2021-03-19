@@ -1,6 +1,6 @@
 <h2 align="center">PokeStore<h2>
 
-Site hospedado [PokeStore](https://poke-store-web-app.netlify.app/)
+Site hospedado [PokeStore](https://poke-store-web.netlify.app/)
 
 <h3 align="center" fontSize="60px">
  PokeStore - plataforma de lojas pokémons
