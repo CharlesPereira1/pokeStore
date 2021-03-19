@@ -11,7 +11,6 @@ interface RepoPropsStyle {
 }
 
 export const ContentStyle = styled(Content)`
-  max-width: 1520px;
   margin: 10px 10px;
   padding-right: 10px;
 
@@ -34,6 +33,11 @@ export const ContentStyle = styled(Content)`
   ::-webkit-scrollbar-track {
     background-color: ${colors.barBkColor};
     border-radius: 3px;
+  }
+
+  @media (max-width: 600px) {
+    height: 55vh;
+    margin: 0 auto;
   }
 `;
 
@@ -68,28 +72,47 @@ export const ProductList = styled.ul<RepoPropsStyle>`
     }
 
     > strong {
-      font-size: 16px;
+      font-size: 14px;
       line-height: 20px;
       color: ${colors.text};
       margin-top: 10px;
     }
 
-    > span {
+    > div {
       display: flex;
-      align-items: center;
-      max-height: 35px;
+      justify-content: space-between;
 
-      margin: 5px 0 10px;
+      a {
+        font-size: 12px;
+        display: flex;
+        color: ${({ btnColor }) => btnColor};
+        text-align: right;
+        justify-content: right;
+        height: 25px;
+        padding: 0px 5px;
 
-      > img {
-        width: 20px;
-        height: 20px;
-        margin-right: 5px;
+        :hover {
+          color: ${({ btnColor }) => btnColor && shade(0.2, btnColor)};
+        }
       }
-      > p {
-        font-size: 20px;
-        font-weight: 700;
-        margin-top: 22px;
+
+      > span {
+        display: flex;
+        align-items: center;
+        max-height: 35px;
+
+        margin: 5px 0 10px;
+
+        > img {
+          width: 20px;
+          height: 20px;
+          margin-right: 5px;
+        }
+        > p {
+          font-size: 20px;
+          font-weight: 700;
+          margin-top: 22px;
+        }
       }
     }
 

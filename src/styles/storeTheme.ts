@@ -1,10 +1,3 @@
-// interface NewType {
-//   id: string;
-//   name: string;
-//   bgColor: string;
-//   btnColor: string;
-// }
-
 export const storyList = [
   {
     id: 1,
@@ -134,46 +127,3 @@ export const storyList = [
     btnColor: '#9B6470',
   },
 ];
-
-// export const storeTheme = (idType: string) => {
-//   switch (idType) {
-//     case 'ice':
-//       return {
-//         id: 15,
-//         name: 'Gelo',
-//         bgColor: 'rgb(173, 216, 230, .3)',
-//         btnColor: '#638080',
-//       };
-//     case 'ghost':
-//       return {
-//         id: 8,
-//         name: 'Fantasma',
-//         bgColor: 'rgb(162, 146, 188, .3)',
-//         btnColor: '#705090',
-//       };
-//     case 'normal':
-//       return {
-//         id: 1,
-//         name: 'Normal',
-//         bgColor: 'rgb(168, 168, 120, .3)',
-//         btnColor: '#705090',
-//       };
-//     case 'fighting':
-//       return {
-//         id: 2,
-//         name: 'Lutador',
-//         bgColor: 'rgb(162, 146, 188, .3)',
-//         btnColor: '#6D6D4E',
-//       };
-//     case 'flying':
-//       return {
-//         id: 3,
-//         name: 'Voador',
-//         bgColor: 'rgb(168, 144, 240, .3)',
-//         btnColor: '#6D5E9C',
-//       };
-
-//     default:
-//       return '';
-//   }
-// };

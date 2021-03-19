@@ -1,5 +1,3 @@
-/* eslint-disable no-unneeded-ternary */
-/* eslint-disable jsx-a11y/control-has-associated-label */
 import React, { useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
@@ -12,54 +10,34 @@ import { useGetToTypePokemon } from '~/hooks/useGetToTypePokemon';
 import { LayoutStyle, Container } from './styles';
 
 const Repository: React.FC = () => {
-  const [openCart, setOpenCart] = useState(false);
-
-  const { handleTypeOfPokemonClass } = useGetToTypePokemon();
+  const { openCart, handleTypeOfPokemonClass } = useGetToTypePokemon();
   const history = useHistory();
 
-  const typeList = JSON.parse(localStorage.getItem('listTypes') || '[]');
-  const listAddToCart = JSON.parse(localStorage.getItem('addToCart') || '[]');
+  const types = JSON.parse(localStorage.getItem('listTypes') || '[]');
 
   const handleGoBack = useCallback(() => {
-    history.goBack();
+    history.push('/');
     localStorage.removeItem('repoPokemon');
-  }, []); // eslint-disable-line
-
-  const qtdCartList = listAddToCart.filter(
-    (fList: any) => fList.idLoja === typeList.id,
-  ).length;
+  }, []);
 
   useEffect(() => {
-    document.title = `PokeStore | ${typeList?.name}`;
+    document.title = `PokeStore | ${types?.name}`;
 
-    if (typeList.id) {
-      handleTypeOfPokemonClass(typeList.id);
+    if (types.id) {
+      handleTypeOfPokemonClass(types.id, types);
     }
-  }, []); // eslint-disable-line
+  }, []);
 
   return (
     <>
       <LayoutStyle>
-        <Header
-          qtdCartList={qtdCartList}
-          handleGoBack={handleGoBack}
-          setOpenCart={setOpenCart}
-        />
+        <Header handleGoBack={handleGoBack} />
       </LayoutStyle>
 
-      {/* <LayoutStyle> */}
       <Container>
-        <ListItem />
-        {openCart && (
-          <Cart
-            themeStyle={{
-              bgColor: typeList?.bgColor,
-              btnColor: typeList?.btnColor,
-            }}
-          />
-        )}
+        <ListItem openCart={openCart} />
+        {openCart && <Cart />}
       </Container>
-      {/* </LayoutStyle> */}
     </>
   );
 };

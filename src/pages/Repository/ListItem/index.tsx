@@ -1,5 +1,7 @@
 import React from 'react';
 import { List } from 'antd';
+import { Link } from 'react-router-dom';
+
 import { useGetToTypePokemon } from '~/hooks/useGetToTypePokemon';
 
 import dolarSvg from '~/assets/svg/dollarSign.svg';
@@ -7,18 +9,22 @@ import pokebola from '~/assets/pokebola.png';
 
 import { CardList, ContentStyle, ProductList } from './styles';
 
-const ListItem: React.FC = () => {
+interface ListItemProps {
+  openCart?: boolean;
+}
+
+const ListItem: React.FC<ListItemProps> = ({ openCart }) => {
   const {
+    types,
     repoPokemons,
-    repoPokemonsSearch,
     loadingPokemons,
     handleAddToCart,
   } = useGetToTypePokemon();
 
-  const typeList = JSON.parse(localStorage.getItem('listTypes') || '[]');
+  // const typeList = JSON.parse(localStorage.getItem('listTypes') || '[]');
 
   return (
-    <ContentStyle>
+    <ContentStyle style={{ maxWidth: openCart ? '1520px' : '100%' }}>
       <List
         loading={!!loadingPokemons}
         grid={{
@@ -34,33 +40,36 @@ const ListItem: React.FC = () => {
         locale={{
           emptyText: 'Nenhuma lista encontrada',
         }}
-        dataSource={
-          repoPokemonsSearch?.length >= 1 ? repoPokemonsSearch : repoPokemons
-        }
+        dataSource={repoPokemons}
         renderItem={item => (
-          <List.Item style={{ border: '0px', padding: '0px' }}>
-            <CardList style={{ background: typeList?.bgColor }}>
-              <ProductList
-                bgColor={typeList?.bgColor}
-                btnColor={typeList?.btnColor}
-              >
-                <li>
-                  <img src={item?.img ?? pokebola} alt={item?.name} />
+          <>
+            <List.Item key={item.id}>
+              <CardList style={{ background: types?.bgColor }}>
+                <ProductList
+                  bgColor={types?.bgColor}
+                  btnColor={types?.btnColor}
+                >
+                  <li>
+                    <img src={item?.imgSvg ?? pokebola} alt={item?.name} />
 
-                  <strong>{item?.name}</strong>
+                    <strong>{item?.name}</strong>
 
-                  <span>
-                    <img src={dolarSvg} alt="" />
-                    <p>{item?.price}</p>
-                  </span>
+                    <div>
+                      <span>
+                        <img src={dolarSvg} alt="" />
+                        <p>{item?.price}</p>
+                      </span>
+                      <Link to={`/details/${item.id}/pokemon`}>Detalhe</Link>
+                    </div>
 
-                  <button onClick={() => handleAddToCart(item)}>
-                    Adicionar
-                  </button>
-                </li>
-              </ProductList>
-            </CardList>
-          </List.Item>
+                    <button onClick={() => handleAddToCart(item)}>
+                      Adicionar
+                    </button>
+                  </li>
+                </ProductList>
+              </CardList>
+            </List.Item>
+          </>
         )}
       />
     </ContentStyle>
