@@ -6,10 +6,8 @@ import swal from 'sweetalert';
 import { Modal } from 'antd';
 import { useHistory } from 'react-router-dom';
 
-import {
-  CartProps as CartPropsHook,
-  useGetToTypePokemon,
-} from '~/hooks/useGetToTypePokemon';
+import { useGetToTypePokemon } from '~/hooks/useGetToTypePokemon';
+import { CartProps as CartPropsHook } from '~/hooks/types';
 
 import dolarSvg from '~/assets/svg/dollarSign.svg';
 import pokebola from '~/assets/pokebola.png';

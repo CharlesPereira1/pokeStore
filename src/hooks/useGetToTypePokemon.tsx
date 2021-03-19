@@ -6,14 +6,18 @@ import React, {
   useState,
   Dispatch,
   SetStateAction,
-  SVGProps,
   useEffect,
 } from 'react';
 import { useTheme } from 'styled-components';
 
 import { getPokemonToType, getTypeOfPokemonClass } from '~/services/api';
-
 import pokemonTypes from '~/assets/types';
+import {
+  CartProps,
+  RepoPokemonProps,
+  TypesProps,
+  TypePokemonResponse,
+} from './types';
 
 interface TypePokemonProps {
   openCart: boolean;
@@ -29,58 +33,6 @@ interface TypePokemonProps {
   handleAddToCart(item: RepoPokemonProps): void;
   handleSubQtdToCart(item: CartProps): void;
   handleRemoveToCart(item: CartProps): void;
-}
-
-export interface CartProps {
-  id: number;
-  price: number;
-  name: string;
-  img: string;
-  imgSvg: string;
-  qtd: number;
-  idLoja: number;
-  subTotal: number;
-}
-
-export interface PokemonTypesProps {
-  name?: string;
-  icon: SVGProps<SVGSVGElement>;
-  color: string;
-}
-
-export interface RepoPokemonProps {
-  id: number;
-  price: number;
-  name: string;
-  img: string;
-  imgSvg: string;
-  idLoja: number;
-  weight?: string;
-  specie?: string;
-  height?: string;
-  stats?: {
-    hp?: string;
-    attack?: string;
-    defense?: string;
-    specialAttack?: string;
-    specialDefense?: string;
-    speed?: string;
-  };
-  type?: PokemonTypesProps[];
-}
-
-export interface TypePokemonResponse {
-  type: {
-    name: keyof typeof pokemonTypes;
-  };
-}
-
-interface TypesProps {
-  bgColor: string;
-  btnColor: string;
-  id: number;
-  name: string;
-  type: string;
 }
 
 const TypePokemonContext = createContext<TypePokemonProps>(

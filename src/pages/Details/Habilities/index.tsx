@@ -1,9 +1,7 @@
 import React from 'react';
 
-import {
-  RepoPokemonProps,
-  useGetToTypePokemon,
-} from '~/hooks/useGetToTypePokemon';
+import { useGetToTypePokemon } from '~/hooks/useGetToTypePokemon';
+import { RepoPokemonProps } from '~/hooks/types';
 
 import dolarSvg from '~/assets/svg/dollarSign.svg';
 

@@ -9,7 +9,6 @@ interface RepoPropsStyle {
   bgColor?: string;
   btnColor?: string;
 }
-
 export const ContentStyle = styled(Content)`
   margin: 10px 10px;
   padding-right: 10px;
@@ -36,8 +35,11 @@ export const ContentStyle = styled(Content)`
   }
 
   @media (max-width: 600px) {
-    height: 55vh;
-    margin: 0 auto;
+    height: 100vh;
+
+    &.expandeHeigh {
+      height: 62vh;
+    }
   }
 `;
 

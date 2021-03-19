@@ -21,10 +21,11 @@ const ListItem: React.FC<ListItemProps> = ({ openCart }) => {
     handleAddToCart,
   } = useGetToTypePokemon();
 
-  // const typeList = JSON.parse(localStorage.getItem('listTypes') || '[]');
-
   return (
-    <ContentStyle style={{ maxWidth: openCart ? '1520px' : '100%' }}>
+    <ContentStyle
+      style={{ maxWidth: openCart ? '1520px' : '100%' }}
+      className={openCart ? 'expandeHeigh' : ''}
+    >
       <List
         loading={!!loadingPokemons}
         grid={{

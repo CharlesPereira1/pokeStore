@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 import { Layout } from 'antd';
 import { colors } from '~/styles/theme';
@@ -15,7 +15,5 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* justify-self: center;
-    text-align: center; */
   }
 `;

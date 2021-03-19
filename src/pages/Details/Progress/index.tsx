@@ -1,7 +1,7 @@
 import React from 'react';
 import { Progress as ProgressCont } from 'antd';
 
-import { RepoPokemonProps } from '~/hooks/useGetToTypePokemon';
+import { RepoPokemonProps } from '~/hooks/types';
 
 import { colors as colorTheme } from '~/styles/theme';
 import { Container } from './styles';

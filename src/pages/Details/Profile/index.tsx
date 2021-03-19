@@ -1,9 +1,6 @@
 import React from 'react';
 
-import {
-  PokemonTypesProps,
-  RepoPokemonProps,
-} from '~/hooks/useGetToTypePokemon';
+import { PokemonTypesProps, RepoPokemonProps } from '~/hooks/types';
 
 import { Container, Weaknesse } from './styles';
 

@@ -12,11 +12,8 @@ import Progress from './Progress';
 
 import { getPokemonSpecies, getTypeOfPokemonClass } from '~/services/api';
 
-import {
-  PokemonTypesProps,
-  RepoPokemonProps,
-  useGetToTypePokemon,
-} from '~/hooks/useGetToTypePokemon';
+import { useGetToTypePokemon } from '~/hooks/useGetToTypePokemon';
+import { PokemonTypesProps, RepoPokemonProps } from '~/hooks/types';
 
 import { Container, Content } from './styles';
 
