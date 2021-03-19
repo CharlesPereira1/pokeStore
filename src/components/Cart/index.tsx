@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { MdAddCircleOutline, MdRemoveCircleOutline } from 'react-icons/md';
 import { AiOutlineStop } from 'react-icons/ai';
 import swal from 'sweetalert';
@@ -20,6 +20,7 @@ const Cart: React.FC = () => {
   const {
     types,
     itemsToCart,
+    reloadPage,
     handleAddToCart,
     handleSubQtdToCart,
     handleRemoveToCart,
@@ -65,6 +66,10 @@ const Cart: React.FC = () => {
       history.push('/');
     }, 1500);
   };
+
+  useEffect(() => {
+    reloadPage();
+  }, []);
 
   return (
     <SiderStyle bgColor={types.bgColor}>

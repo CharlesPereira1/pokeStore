@@ -23,6 +23,7 @@ interface TypePokemonProps {
   repoPokemons: RepoPokemonProps[];
   itemsToCart: CartProps[];
   loadingPokemons: boolean;
+  reloadPage(): void;
   handleTypeOfPokemonClass(id: number, type: any): void;
   handleSearch(value: string): void;
   handleAddToCart(item: RepoPokemonProps): void;
@@ -95,6 +96,14 @@ const TypePokemonProvider: React.FC = ({ children }) => {
   const [repoPokemonsSearch, setRepoPokemonsSearch] = useState('');
 
   const { colors } = useTheme();
+
+  const reloadPage = useCallback(() => {
+    const listAddToCart = JSON.parse(localStorage.getItem('addToCart') || '[]');
+    const listTypes = JSON.parse(localStorage.getItem('listTypes') || '[]');
+
+    setTypes(listTypes);
+    setItemsToCart(listAddToCart);
+  }, [types, itemsToCart]);
 
   const handleTypeOfPokemonClass = useCallback(
     (id, type) => {
@@ -323,6 +332,7 @@ const TypePokemonProvider: React.FC = ({ children }) => {
         repoPokemons,
         handleSearch,
         loadingPokemons,
+        reloadPage,
         itemsToCart,
         handleAddToCart,
         handleSubQtdToCart,
