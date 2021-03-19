@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const api = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
+export const api = axios.create({
+  baseURL: 'https://pokeapi.co/api/v2',
 });
 
 export const getTypeOfPokemonClass = (id: number) => {
@@ -10,4 +10,8 @@ export const getTypeOfPokemonClass = (id: number) => {
 
 export const getPokemonToType = (id: number) => {
   return api.get(`/pokemon/${id}`);
+};
+
+export const getPokemonSpecies = (id: number) => {
+  return api.get(`/pokemon-species/${id}`);
 };

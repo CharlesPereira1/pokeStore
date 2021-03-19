@@ -15,7 +15,7 @@ interface CardtProps {
 export const SiderStyle = styled.div<CardtProps>`
   display: flex;
 
-  max-width: 400px;
+  width: 400px;
   height: 90vh;
 
   background: ${({ bgColor }) => bgColor};
@@ -29,7 +29,7 @@ export const SiderStyle = styled.div<CardtProps>`
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 5px 0 rgba(0, 0, 0, 0.19);
 
   h3 {
-    display: block;
+    width: 400px;
     text-align: center;
     font-weight: bold;
     padding: 5px 0;
@@ -37,9 +37,10 @@ export const SiderStyle = styled.div<CardtProps>`
   }
 
   @media (max-width: 600px) {
-    order: -1;
     max-width: 590px;
     height: 50vh;
+    margin: 0 auto;
+    margin-top: 20px;
   }
   @media (max-width: 412px) {
     width: 100%;
@@ -52,7 +53,7 @@ export const ProductTable = styled.div`
   height: 75vh;
   display: flex;
   flex-direction: column;
-  width: 100%;
+  max-width: 100%;
 
   overflow-y: auto;
   overflow-x: hidden;
@@ -75,42 +76,41 @@ export const ProductTable = styled.div`
   }
 
   li {
-    display: flex;
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: 1fr 3fr 2fr 2.5fr;
     justify-content: space-between;
     padding-top: 10px;
 
-    & + li {
-      margin-top: 10px;
-      border-top: 1px solid ${colors.border};
-    }
-    div {
-      display: flex;
-      /* justify-content: space-between; */
-    }
+    margin-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid ${colors.border};
 
     div:nth-child(1) {
       img {
-        height: 75px;
+        width: 60px;
+        height: 60px;
       }
     }
     div:nth-child(2) {
       align-items: center;
       display: flex;
       flex-direction: column;
+      strong {
+        font-size: 14px;
+      }
       > span {
         display: flex;
         align-items: center;
         max-height: 35px;
 
-        margin: 5px 0 10px;
-
         > img {
           width: 20px;
           height: 20px;
-          margin-right: 5px;
         }
+
         > p {
-          font-size: 14px;
+          font-size: 13px;
           font-weight: 700;
           margin-top: 23px;
         }
@@ -120,11 +120,12 @@ export const ProductTable = styled.div`
     div:nth-child(3) {
       display: flex;
       flex-direction: column;
-      margin-left: 15px;
+
       span {
         display: flex;
         align-items: center;
         flex-direction: row;
+
         input {
           border: 1px solid ${colors.border};
           border-radius: 4px;
@@ -134,6 +135,7 @@ export const ProductTable = styled.div`
           font-size: 12px;
           margin: 0 5px;
         }
+
         > button {
           svg {
             margin-top: 8px;
@@ -161,15 +163,13 @@ export const ProductTable = styled.div`
   .subTotal {
     display: flex;
     align-items: center;
-    max-height: 35px;
-
-    margin: 5px 20px 10px;
 
     img {
       width: 20px;
       height: 20px;
       margin-right: 5px;
     }
+
     p {
       font-size: 14px;
       font-weight: 700;
@@ -193,8 +193,6 @@ export const Total = styled.div`
   footer {
     display: flex;
     flex-direction: column;
-    /* flex-direction: c; */
-    /* justify-content: space-between; */
 
     button {
       width: 100%;

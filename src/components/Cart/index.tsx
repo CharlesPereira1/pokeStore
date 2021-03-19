@@ -6,40 +6,35 @@ import swal from 'sweetalert';
 import { Modal } from 'antd';
 import { useHistory } from 'react-router-dom';
 
-import Item from 'antd/lib/list/Item';
-import { PokemonProps, useGetToTypePokemon } from '~/hooks/useGetToTypePokemon';
+import {
+  CartProps as CartPropsHook,
+  useGetToTypePokemon,
+} from '~/hooks/useGetToTypePokemon';
 
 import dolarSvg from '~/assets/svg/dollarSign.svg';
 import pokebola from '~/assets/pokebola.png';
 
 import { SiderStyle, ProductTable, Total } from './styles';
 
-interface CartProps extends PokemonProps {
-  themeStyle?: {
-    bgColor?: string;
-    btnColor?: string;
-  };
-}
-
-const Cart: React.FC<CartProps> = () => {
-  const listAddToCart = JSON.parse(localStorage.getItem('addToCart') || '[]');
-  const typeList = JSON.parse(localStorage.getItem('listTypes') || '[]');
-
-  const { confirm } = Modal;
-  const history = useHistory();
+const Cart: React.FC = () => {
   const {
+    types,
+    itemsToCart,
     handleAddToCart,
     handleSubQtdToCart,
     handleRemoveToCart,
   } = useGetToTypePokemon();
 
-  const lista = listAddToCart
-    .filter((fList: any) => fList.idLoja === typeList.id)
-    .reduce((total: any, item: any) => {
+  const { confirm } = Modal;
+  const history = useHistory();
+
+  const totalList = itemsToCart
+    .filter((fList: CartPropsHook) => fList.idLoja === types.id)
+    .reduce((total: number, item) => {
       return total + item.subTotal;
     }, 0);
 
-  const handleConfirmRemove = (list: PokemonProps) => {
+  const handleConfirmRemove = (list: CartPropsHook) => {
     confirm({
       title: `Você realmente deseja deletar o pokemon ${list.name} do seu carrinho?`,
       icon: '',
@@ -60,37 +55,42 @@ const Cart: React.FC<CartProps> = () => {
       timer: 1500,
     });
 
-    const clearItensList = listAddToCart.filter(
-      (fList: any) => fList.idLoja !== typeList.id,
+    const clearItensList = itemsToCart.filter(
+      (fList: CartPropsHook) => fList.idLoja !== types.id,
     );
 
     localStorage.setItem('addToCart', JSON.stringify(clearItensList));
 
     setTimeout(() => {
-      history.goBack();
+      history.push('/');
     }, 1500);
   };
 
   return (
-    <SiderStyle bgColor={typeList.bgColor}>
-      {!listAddToCart.some((fList: any) => fList.idLoja === typeList.id) ? (
+    <SiderStyle bgColor={types.bgColor}>
+      {!itemsToCart.some(
+        (fList: CartPropsHook) => fList.idLoja === types.id,
+      ) ? (
         'Nenhum pokemon no carrinho.'
       ) : (
         <>
           <ProductTable>
             <h3>CARRINHO</h3>
-            {listAddToCart
-              .filter((fList: any) => fList.idLoja === typeList.id)
-              .map((listCard: CartProps) => (
+            {itemsToCart
+              .filter((fList: CartPropsHook) => fList.idLoja === types.id)
+              .map((listCard: CartPropsHook) => (
                 <div key={listCard.id}>
                   <li>
                     <div>
-                      <img src={listCard.img} alt={listCard.name} />
+                      <img
+                        src={listCard.imgSvg || pokebola}
+                        alt={listCard.name}
+                      />
                     </div>
                     <div>
-                      <strong>{listCard.name || pokebola}</strong>
+                      <strong>{listCard.name.substr(0, 13)}</strong>
                       <span>
-                        <img src={dolarSvg} alt="" />
+                        <img src={dolarSvg} alt={listCard.name} />
                         <p>{listCard.price}</p>
                       </span>
                     </div>
@@ -137,7 +137,7 @@ const Cart: React.FC<CartProps> = () => {
                 <strong>TOTAL:</strong>
                 <span>
                   <img src={dolarSvg} alt="" />
-                  <p>{lista}</p>
+                  <p>{totalList}</p>
                 </span>
               </div>
               <button onClick={handleFinallyShop}>Finalizar pedido</button>
